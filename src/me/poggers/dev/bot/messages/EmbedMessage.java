@@ -5,10 +5,12 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 
 import java.awt.*;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
 
 public class EmbedMessage {
 
@@ -58,43 +60,13 @@ public class EmbedMessage {
                 .build();
     }
 
-    public void sendPrivateCannotSendMessage(Member bot){
+    public void sendPrivateCannotSendMessage(User admin, Member bot){
 
-       bot.getGuild().getMemberById("796901428392099860").getUser().openPrivateChannel().queue(privateChannel ->
-                privateChannel.sendMessage("Não consigo enviar mensagens no servidor " +
-                        bot.getGuild().getName() + " preciso da permissão: " +
-                        Permission.MESSAGE_WRITE.getName()).queue());
+       admin.openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(getInstance().setColor(new Color(0xFF0000))
+                .setDescription("Não consigo enviar mensagens no servidor " +
+                bot.getGuild().getName() + " preciso da permissão: " +
+                Permission.MESSAGE_WRITE.getName())
+               .build()).queue(message -> message.delete().queueAfter(1, TimeUnit.MINUTES)));
     }
 }
-
-    /*public MessageEmbed Embedteste(Member author){
-        getInstance()
-        .setTitle("Poggers","https://www.google.com.br")
-        .setAuthor(author.getUser().getName(),"https://www.google.com.br",
-        author.getUser().getAvatarUrl())
-        .setColor(new Color(0xFFFFFF))
-        .setDescription("[Descrição.](https://google.com.br)\n```yaml\nDos mesmos criadores" +
-                "de matador de joaninha, vem ai...\n```")
-        .setImage(author.getUser().getAvatarUrl())
-        .setFooter(author.getId(),author.getUser().getAvatarUrl())
-        .setTimestamp(Instant.now())
-        .appendDescription("Adicional")
-        .addField("nome","valor",true);
-
-
-
-
-        return getInstance().build();
-
-    }
-
-    public MessageEmbed Embedteste2(Member author){
-        getInstance()
-                .clear()
-                .setColor(new Color(0xFF0000))
-                .setDescription("Segunda mensagem Emblematica");
-
-        return getInstance().build();
-
-    }*/
 

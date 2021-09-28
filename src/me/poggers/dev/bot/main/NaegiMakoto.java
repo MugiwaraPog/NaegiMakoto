@@ -1,8 +1,6 @@
 package me.poggers.dev.bot.main;
 
-import me.poggers.dev.bot.commands.Ping;
-import me.poggers.dev.bot.commands.Prefix;
-import me.poggers.dev.bot.commands.Roles;
+import me.poggers.dev.bot.commands.*;
 /*import me.poggers.dev.bot.commands.teste;*/
 import me.poggers.dev.bot.database.CRUD;
 import me.poggers.dev.bot.database.Config;
@@ -46,7 +44,11 @@ public class NaegiMakoto {
                 new MemberJoin(),
                 new Prefix(),
                 new Roles(),
-                new GuildLeave()                /*new teste()*/);
+                new GuildLeave(),
+                new MemberLeave(),
+                new BulkDelete(),
+                new PrivateBulkDelete()
+                /*new teste()*/);
 
 
 
@@ -66,7 +68,7 @@ setActivity(jda);
 
     }
     public static void setActivity(JDA jda) throws InterruptedException {
-        jda.getPresence().setPresence(OnlineStatus.DO_NOT_DISTURB ,Activity.playing("em " +
+        jda.getPresence().setPresence(OnlineStatus.IDLE ,Activity.playing("em " +
                 jda.awaitReady().getGuilds().size() + " servidores"));
 }
 }
